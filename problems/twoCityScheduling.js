@@ -3,17 +3,10 @@
  * @return {number}
  */
 var twoCitySchedCost = function(costs) {
-  // Decompose into one sorted array
-  // const complexArray = [];
-  // let i = 0;
-
-  // for (let [costA, costB] of costs) {
-  //     complexArray.push([costA, costB, costB - costA]);
-  // }
-
+  // Sort array based on profit for going to city A over city B
   costs.sort((a,b) => (b[1] - b[0]) - (a[1] - a[0]));
 
-  // Once decomposed, add all A, then add B
+  // Once decomposed, add n people to city A, then add rest to B
   const n = (costs.length / 2);
   let countA = 0;
   let sum = 0;
