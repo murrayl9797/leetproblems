@@ -4,21 +4,21 @@
  */
 var twoCitySchedCost = function(costs) {
   // Decompose into one sorted array
-  const complexArray = [];
-  let i = 0;
+  // const complexArray = [];
+  // let i = 0;
 
-  for (let [costA, costB] of costs) {
-      complexArray.push([costA, costB, costB - costA]);
-  }
+  // for (let [costA, costB] of costs) {
+  //     complexArray.push([costA, costB, costB - costA]);
+  // }
 
-  complexArray.sort((a,b) => b[2] - a[2]);
+  costs.sort((a,b) => (b[1] - b[0]) - (a[1] - a[0]));
 
   // Once decomposed, add all A, then add B
   const n = (costs.length / 2);
   let countA = 0;
   let sum = 0;
 
-  for (let [costA, costB, profitForA] of complexArray) {
+  for (let [costA, costB] of costs) {
     if (countA < n) {
       sum += costA;
       countA++;
