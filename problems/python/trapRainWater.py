@@ -1,44 +1,55 @@
 class Solution:
     def trap(self, height):
 
-        # Find how much can be trapped onto of each position
-        res = 0
+        # Two pointer approach
         n = len(height)
+        ans = 0
 
-        for ind, curr in enumerate(height):
-
-            # Cannot store water on first or last
-            if ind == 0 or ind == n - 1:
-                continue
-
-            # Find how much water can be trapped on curr
-            l = r = ind
-            max_l = -1
-            max_r = -1
-            amount = 0
-
-            while l >= 0 and r <= n - 1:
-
-                # Update variables
-                l = l if l == 0 else l - 1
-                r = r if r == n - 1 else r + 1
-                max_l = max(max_l, height[l])
-                max_r = max(max_r, height[r])
-
-                # Update curr amount
-                diff = min(max_l, max_r) - curr
-                amount = max(amount, diff)
-
-                if l == 0 and r == n - 1:
-                  break
+        l = 0
+        r = n - 1
+        max_l = height[l]
+        max_r = height[r]
 
 
-            # print(f"Ind: {ind}, ({max_l}, {max_r}) - {amount}")
-            res += amount
+        # Iterate
+        while l < r:
+
+            # Move left inwards
+            if height[l] < height[r]:
+
+                # If height[l] >= max_l, no water above
+                if height[l] >= max_l:
+
+                    # Just update
+                    max_l = height[l]
+
+                # Else, water on l block
+                else:
+                    ans += max_l - height[l]
+
+                # Move l
+                l += 1
+
+            # Move right inwards
+            else:
+
+                # If height[l] >= max_l, no water above
+                if height[r] >= max_r:
+
+                    # Just update
+                    max_r = height[r]
+
+                # Else, water on r block
+                else:
+                    ans += max_r - height[r]
+
+                # Move r
+                r -= 1
 
 
-        # Return result
-        return res
+
+        # Return answer
+        return ans
 
 
 s = Solution()
